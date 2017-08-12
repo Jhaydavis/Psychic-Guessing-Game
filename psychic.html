@@ -10,10 +10,10 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- Bootstrap core CSS -->
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-         <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
+       
         <!-- Custom styles for this template -->
-        <link href="jumbotron.css" rel="stylesheet">
-     
+        <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
+
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -25,7 +25,7 @@
                     <a class="navbar-brand" href="#">Jhay's Game Homework</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
-</div>
+                </div>
                 <!--/.navbar-collapse -->
             </div>
         </nav>
@@ -48,9 +48,9 @@
                         <p id="matches-lost">Matches Lost: 0</p>
                         <hr>
                         <p id="current-guess">Current Guess: 0</p>
-                        <p id="guesses-left">Guesses Left: </p> 
+                        <p id="guesses-left">Guesses Left: </p>
                         <div id="letters" style="font-family: arial;font-size: 30px">
-                            <h4 class="bg-warning" style="padding-top: 9px;padding-bottom: 10px">Letters Guessed Already: </h4> 
+                            <h4 class="bg-warning" style="padding-top: 9px;padding-bottom: 10px">Letters Guessed Already: </h4>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
             <footer>
                 <p>© Jhay Davis 2017</p>
             </footer>
-        </div>         
+        </div>
         <!-- /container -->
         <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -88,85 +88,98 @@
         var totalMatchesLost = 0;
         var totalMatchesWon = 0;
         var maxMatchesAllowed = 7;
-        var matchesPlayed = 0;
         var userGuess;
+        var letterGuessed =[];
 
 
 
-        
 
 
-            
+
+
 
   // Capture the key that was pressed and stores it as userGuess
-            
-   
-            var computerChoices = ["p", "o", "r"];
-           
+
+
+            var computerChoices = ["p", "o", "r", "s", "c","e", "a","u","d","i","c","h"];
+
 
 
             // start loop of having computer select a random letter from the array
             var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
-        
+
             document.onkeyup = function(event) {
                 var userGuess = event.key;
-               
-                var letterGuessed =[];
-                letterGuessed.push(userGuess);
-                $("#letters").append(userGuess + "--") ;
 
                 
-   
-            
+               
 
 
-            
+
+
+
+
+
             // Check the user key and compare it to the random letter selected by the computer
             if (userGuess === computerGuess) {
                 // Select the div with the id "game", and insert the following WIN condtion HTML into it.
                 matchWins++;
-                matchesPlayed++;
+                guessCount = 0;
                 guessCount++;
-               
-                document.querySelector("#game").innerHTML = " Correct! You guessed: " + userGuess + ". My letter was " + computerGuess + " Good job!";
+                userGuess = 0;
+                
+
+                document.querySelector("#game").innerHTML = " Correct!  My letter was " + computerGuess + " Good job!";
                 document.querySelector("#current-guess").innerHTML = "Guess #: " + guessCount;
 
                 document.querySelector("#matches-won").innerHTML = "Matches Won: " + matchWins;
-                start();
-              
+                
+                guessCount = 0;
 
-                    
+                computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+                letterGuessed =[];
+
+                 
+                // $("#letters").append(userGuess + "--") ;
+                
+
+
+
             } else  {
                 guessCount++;
+                letterGuessed.push(userGuess);
+                $("#letters").html(letterGuessed);
                 document.querySelector("#game").innerHTML = "Guess #: " + guessCount + " Wrong! You guessed: " + userGuess + ". You have " + (maxGuesses - guessCount) + " guesses remaining.";
 
                 document.querySelector("#current-guess").innerHTML = "Guess #: " + guessCount;
                 document.querySelector("#guesses-left").innerHTML = "Guesses Remaining: " + (maxGuesses - guessCount);
                 document.querySelector("#matches-lost").innerHTML = "Matches Lost: " + (matchLosses);
 
-           
+            }
 
-            if (guessCount >= maxGuesses) {
-
-               document.querySelector("#game").innerHTML = "*** You Lost *** ";
-                document.querySelector("#guesses-left").innerHTML = "Guesses Remaining: *** GAME OVER ***";
-                matchesPlayed = matchesPlayed++;
+            if (guessCount >= maxGuesses) { 
+                userGuess = 0;
                 matchLosses++;
-                document.querySelector("#matches-played").innerHTML = "Matches Played " + matchesPlayed;
+                letterGuessed =[];
+                guessCount = 0;
+               document.querySelector("#game").innerHTML = "*** You Lost *** ";
+               document.querySelector("#guesses-left").innerHTML = "Guesses Remaining: *** GAME OVER ***";
+               document.querySelector("#matches-lost").innerHTML = "Matches Lost: " + matchLosses;
+               computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+
                }
 
-              
-               
+
+            
 
 
 
-
-            }
         }
-      
 
-        
+
+
 
     </script>
     </body>
