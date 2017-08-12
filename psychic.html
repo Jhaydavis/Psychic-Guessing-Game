@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Jumbotron Template for Bootstrap</title>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Bootstrap core CSS -->
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+         <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="jumbotron.css" rel="stylesheet">
+     
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                    </button>
+                    <a class="navbar-brand" href="#">Jhay's Game Homework</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+</div>
+                <!--/.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="text-center">Psychic Tester</h1>
+                <p class="text-center">Test your primitive psychic abilities, human. Guess the secret letter deep within my mysterious CPU mind by pressing the matching key on your keyboard - If you can! I'll give you 6 attempts.</p>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="game" class="alert-warning" style="text-align: center">
+                            <p class="text-center">&gt;&gt;&gt; Press a Key to guess&lt;&lt;&lt;</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center col-md-8 col-md-offset-2">
+                        <h3>Scoreboard</h3>
+                        <p id="matches-won">Matches Won: 0</p>
+                        <p id="matches-lost">Matches Lost: 0</p>
+                        <hr>
+                        <p id="current-guess">Current Guess: 0</p>
+                        <p id="guesses-left">Guesses Left: </p> 
+                        <div id="letters" style="font-family: arial;font-size: 30px">
+                            <h4 class="bg-warning" style="padding-top: 9px;padding-bottom: 10px">Letters Guessed Already: </h4> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+</div>
+            <hr>
+            <footer>
+                <p>© Jhay Davis 2017</p>
+            </footer>
+        </div>         
+        <!-- /container -->
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script>
+        /*
+        This Psychic Challenge is game where the user tries to guess a letter the computer has selected. The user has 7 guesses.
+        If the user correctly guesses the letter in 7 or less attempts, totalMatchesWon is incremented +1. If the user does not guess the letter
+        in 7 gueses, totalMatchesLost is incremented by +1. When a match is won or lost, the computer selects a new random letter. The game is over
+        when a total of 7 matches have been played.
+        */
+
+        // declare variables
+        var guessCount = 0;
+        var totalTimesGuessed = 0;
+        var maxGuesses = 6;
+        var matchWins = 0;
+        var matchLosses = 0;
+        var totalMatchesLost = 0;
+        var totalMatchesWon = 0;
+        var maxMatchesAllowed = 7;
+        var matchesPlayed = 0;
+        var userGuess;
+
+
+
+        
+
+
+            
+
+  // Capture the key that was pressed and stores it as userGuess
+            
+   
+            var computerChoices = ["p", "o", "r"];
+           
+
+
+            // start loop of having computer select a random letter from the array
+            var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+        
+            document.onkeyup = function(event) {
+                var userGuess = event.key;
+               
+                var letterGuessed =[];
+                letterGuessed.push(userGuess);
+                $("#letters").append(userGuess + "--") ;
+
+                
+   
+            
+
+
+            
+            // Check the user key and compare it to the random letter selected by the computer
+            if (userGuess === computerGuess) {
+                // Select the div with the id "game", and insert the following WIN condtion HTML into it.
+                matchWins++;
+                matchesPlayed++;
+                guessCount++;
+               
+                document.querySelector("#game").innerHTML = " Correct! You guessed: " + userGuess + ". My letter was " + computerGuess + " Good job!";
+                document.querySelector("#current-guess").innerHTML = "Guess #: " + guessCount;
+
+                document.querySelector("#matches-won").innerHTML = "Matches Won: " + matchWins;
+                start();
+              
+
+                    
+            } else  {
+                guessCount++;
+                document.querySelector("#game").innerHTML = "Guess #: " + guessCount + " Wrong! You guessed: " + userGuess + ". You have " + (maxGuesses - guessCount) + " guesses remaining.";
+
+                document.querySelector("#current-guess").innerHTML = "Guess #: " + guessCount;
+                document.querySelector("#guesses-left").innerHTML = "Guesses Remaining: " + (maxGuesses - guessCount);
+                document.querySelector("#matches-lost").innerHTML = "Matches Lost: " + (matchLosses);
+
+           
+
+            if (guessCount >= maxGuesses) {
+
+               document.querySelector("#game").innerHTML = "*** You Lost *** ";
+                document.querySelector("#guesses-left").innerHTML = "Guesses Remaining: *** GAME OVER ***";
+                matchesPlayed = matchesPlayed++;
+                matchLosses++;
+                document.querySelector("#matches-played").innerHTML = "Matches Played " + matchesPlayed;
+               }
+
+              
+               
+
+
+
+
+            }
+        }
+      
+
+        
+
+    </script>
+    </body>
+</html>
